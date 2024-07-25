@@ -1,6 +1,4 @@
-# MkDocs Plugin for embedding Drawio files
-[![Publish Badge](https://github.com/tuunit/mkdocs-drawio/workflows/Publish/badge.svg)](https://github.com/tuunit/mkdocs-drawio/actions)
-[![PyPI](https://img.shields.io/pypi/v/mkdocs-drawio)](https://pypi.org/project/mkdocs-drawio/)
+# MkDocs Plugin for embedding Drawio files with url
 
 [Buy Sergey a ☕](https://www.buymeacoffee.com/SergeyLukin) 
 
@@ -11,13 +9,7 @@ This plugin enables you to embed interactive drawio diagrams in your documentati
 
 ```markdown
 ![](my-diagram.drawio)
-```
-
-Additionally this plugin supports multi page diagrams by using the `alt` text to select the pages by name:
-
-```markdown
-![Page-2](my-diagram.drawio)
-![my-custom-page-name](my-diagram.drawio)
+![](../other-diagram.drawio)
 ```
 
 ## Setup
@@ -25,14 +17,14 @@ Additionally this plugin supports multi page diagrams by using the `alt` text to
 Install plugin using pip:
 
 ```
-pip install mkdocs-drawio
+pip install mkdocs-drawio-url
 ```
 
 Add the plugin to your `mkdocs.yml`
 
 ```yaml
 plugins:
-  - drawio
+  - drawio-url
 ```
 
 ### Configuration
@@ -43,14 +35,14 @@ By default the plugin uses the official url for the minified drawio javascript l
 
 ```yaml
 plugins:
-  - drawio:
+  - drawio-url:
       viewer_js: "https://viewer.diagrams.net/js/viewer-static.min.js"
 ```
 
 ## How it works
 
 1. mkdocs generates the html per page
-2. `mkdocs-drawio` attaches to the `on_post_page` event. For more details, please have a look at the [event lifecycle documentation](https://www.mkdocs.org/dev-guide/plugins/#events)
+2. `mkdocs-drawio-url` attaches to the `on_post_page` event. For more details, please have a look at the [event lifecycle documentation](https://www.mkdocs.org/dev-guide/plugins/#events)
 3. Adds the drawio viewer library
 4. Searches through the generated html for all `img` tags that have a source of type `.drawio`
 5. Replaces the found `img` tags with `mxgraph` html blocks (actual drawio diagram content). For more details, please have a look at the [official drawio.com documentation](https://www.drawio.com/doc/faq/embed-html).
